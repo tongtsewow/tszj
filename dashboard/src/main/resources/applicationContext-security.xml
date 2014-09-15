@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+    <global-method-security secured-annotations="enabled"/>
+
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/**.ico" security="none"/>
+    <http create-session="stateless">
+        <!--<intercept-url pattern="/resource/**" filters="none"></intercept-url>-->
+        <!--<intercept-url pattern="/*" access="ROLE_USER"></intercept-url>-->
+        <custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"></custom-filter>
+        <http-basic/>
+    </http>
+
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailService">
+            <password-encoder hash="md5"><salt-source user-property="username"/></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailService" class="com.tszj.dashboard.service.impl.UserServiceImpl"/>
+
+    <beans:bean id="securityFilter"
+                class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager"
+                        ref="affirmativeBasedAccessDecisionManager"/>
+        <beans:property name="securityMetadataSource" ref="securityMetadataSource"/>
+    </beans:bean>
+
+    <beans:bean id="securityMetadataSource"
+                class="com.chukong.finance.service.impl.FilterInvocationSecurityMetadataSourceImpl"/>
+    <beans:bean id="affirmativeBasedAccessDecisionManager"
+                class="com.chukong.finance.service.impl.AccessDecisionManagerImpl"/>
+    <beans:bean id="authenticationManager" class="com.chukong.finance.service.impl.AuthenticationManagerImpl"/>
+    <beans:bean id="passwordEncode" class="com.chukong.finance.service.impl.PasswordEncoderImpl"/>
+</beans:beans>

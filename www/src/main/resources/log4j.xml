@@ -16,7 +16,7 @@
     </appender>
 
     <appender name="infolog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data/log/tszj/info.log"/>
+        <param name="File" value="/data/log/tszj/www/info.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%-5p] [%t] (%F:%L) - %m%n"/>
@@ -28,7 +28,7 @@
     </appender>
 
     <appender name="errorlog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data/log/tszj/error.log"/>
+        <param name="File" value="/data/log/tszj/www/error.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%-5p] [%t] (%F:%L) - %m%n"/>
@@ -40,7 +40,7 @@
     </appender>
 
     <appender name="debuglog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data/log/tszj/debug.log"/>
+        <param name="File" value="/data/log/tszj/www/debug.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%-5p] [%t] (%F:%L) - %m%n"/>
@@ -52,7 +52,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="com.tszj">
+    <logger name="tszj">
         <level value="debug"/>
         <appender-ref ref="errorlog"/>
         <appender-ref ref="debuglog"/>
